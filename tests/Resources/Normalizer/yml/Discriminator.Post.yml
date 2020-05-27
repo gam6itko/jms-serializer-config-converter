@@ -1,0 +1,10 @@
+Gam6itko\JSCC\Tests\Fixtures\Discriminator\Post:
+    discriminator:
+        field_name: type
+        map:
+            post: Gam6itko\JSCC\Tests\Fixtures\Discriminator\Post
+            image_post: Gam6itko\JSCC\Tests\Fixtures\Discriminator\ImagePost
+
+    properties:
+        title:
+            type: string

@@ -1,0 +1,23 @@
+<?php
+
+$rules = [
+    '@Symfony'                     => true,
+    '@Symfony:risky'               => true,
+    'blank_line_after_opening_tag' => false, // <?php declare(strict_types=1);
+    'binary_operator_spaces'       => [
+        'operators' => [
+            '=>' => 'align',
+        ],
+    ],
+    'declare_strict_types'         => true,
+    'ordered_imports'              => true,
+];
+
+$finder = PhpCsFixer\Finder::create()
+    ->in(['src', 'tests']);
+
+return PhpCsFixer\Config::create()
+    ->setFinder($finder)
+    ->setRules($rules)
+    ->setRiskyAllowed(true)
+    ->setUsingCache(true);

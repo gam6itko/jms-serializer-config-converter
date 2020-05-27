@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<serializer>
+    <class name="Gam6itko\JSCC\Tests\Fixtures\All"
+           exclusion-policy="ALL"
+           xml-root-name="foobar"
+           xml-root-prefix="foo"
+           xml-root-namespace="http://your.default.namespace"
+           exclude="false"
+           exclude-if="expr"
+           read-only="false"
+           accessor-order="custom"
+           custom-accessor-order="propertyName1,propertyName2,propertyNameN"
+           access-type="public_method"
+           discriminator-field-name="type"
+           discriminator-disabled="false"
+    >
+        <xml-namespace prefix="" uri="http://your.default.namespace"/>
+        <xml-namespace prefix="atom" uri="http://www.w3.org/2005/Atom"/>
+        <xml-discriminator attribute="true" cdata="false" namespace="http://www.w3.org/2005/Atom"/>
+        <discriminator-class value="some-value">ClassName</discriminator-class>
+        <discriminator-groups>
+            <group>foo</group>
+            <group>bar</group>
+        </discriminator-groups>
+
+        <virtual-property name="expression_prop" expression="object.getName()" serialized-name="class-foo" type="integer"/>
+        <virtual-property name="optional-prop-name" method="getSomeProperty" type="integer" serialized-name="foo"/>
+
+        <property name="property"
+                  exclude="false"
+                  expose="false"
+                  exclude-if="expr"
+                  expose-if="expr"
+                  skip-when-empty="true"
+                  access-type="property"
+                  type="string"
+                  serialized-name="property-foo"
+                  since-version="1"
+                  until-version="2"
+                  inline="true"
+                  read-only="true"
+                  groups="foo,bar"
+                  max-depth="2"
+        >
+            <type>string</type>
+            <groups>
+                <value>foo</value>
+                <value>bar</value>
+            </groups>
+        </property>
+        <property name="property2" accessor-getter="getProperty2" accessor-setter="setProperty2"/>
+        <property name="xmlAttribute" xml-attribute="true"/>
+        <property name="xmlValue" xml-value="true"/>
+        <property name="xmlKvp" xml-key-value-pairs="true"/>
+        <property name="xmlList">
+            <xml-list inline="true" entry-name="string" namespace="http://www.w3.org/2005/Atom" skip-when-empty="true"/>
+        </property>
+        <property name="xmlMap">
+            <xml-map inline="false" key-attribute-name="id" entry-name="item" namespace="http://example.com/namespace2"/>
+        </property>
+        <property name="xmlAttributeMap" xml-attribute-map="true"/>
+        <property name="xmlElement">
+            <xml-element cdata="false" namespace="http://example.com/namespace5"/>
+        </property>
+
+        <callback-method name="methodOne" type="pre-serialize"/>
+        <callback-method name="methodTwo" type="pre-serialize"/>
+        <callback-method name="methodOne" type="post-serialize"/>
+        <callback-method name="methodTwo" type="post-serialize"/>
+        <callback-method name="methodOne" type="post-deserialize"/>
+        <callback-method name="methodTwo" type="post-deserialize"/>
+    </class>
+</serializer>

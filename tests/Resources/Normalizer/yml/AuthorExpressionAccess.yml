@@ -1,0 +1,11 @@
+Gam6itko\JSCC\Tests\Fixtures\AuthorExpressionAccess:
+    xml_root_name: author
+    properties:
+        id:
+            expose: true
+    virtual_properties:
+        firstName:
+            exp: object.getFirstName()
+        getLastName:
+            expose: true
+

@@ -1,0 +1,83 @@
+Gam6itko\JSCC\Tests\Fixtures\All:
+    exclusion_policy: ALL
+    xml_root_name: foobar
+    xml_root_namespace: http://your.default.namespace
+    xml_root_prefix: foo
+    exclude: false
+    exclude_if: expr
+    read_only: false
+    access_type: public_method # defaults to property
+    accessor_order: custom
+    custom_accessor_order: [propertyName1, propertyName2, propertyNameN]
+    xml_namespaces:
+        "": http://your.default.namespace
+        atom: http://www.w3.org/2005/Atom
+    discriminator:
+        field_name: type
+        disabled: false
+        map:
+            some-value: ClassName
+        groups: [foo, bar]
+        xml_attribute: true
+        xml_element:
+            cdata: false
+            namespace: http://www.w3.org/2005/Atom
+    virtual_properties:
+        expression_prop:
+            exp: object.getName()
+            serialized_name: class-foo
+            type: integer
+        getSomeProperty:
+            name: optional-prop-name
+            serialized_name: foo
+            type: integer
+            method: getSomeProperty
+    properties:
+        property:
+            exclude: false
+            expose: false
+            exclude_if: expr
+            expose_if: expr
+            skip_when_empty: true
+            access_type: property
+            type: string
+            serialized_name: property-foo
+            since_version: '1'
+            until_version: '2'
+            groups: [foo, bar]
+            inline: true
+            read_only: true
+            max_depth: 2
+        property2:
+            accessor:
+                getter: getProperty2
+                setter: setProperty2
+        xmlAttribute:
+            xml_attribute: true
+        xmlValue:
+            xml_value: true
+        xmlKvp:
+            xml_key_value_pairs: true
+        xmlList:
+            xml_list:
+                inline: true
+                entry_name: string
+                namespace: http://www.w3.org/2005/Atom
+                skip_when_empty: true
+        xmlMap:
+            xml_map:
+                inline: false
+                key_attribute_name: id
+                entry_name: item
+                namespace: http://example.com/namespace2
+        xmlAttributeMap:
+            xml_attribute_map: true
+        xmlElement:
+            xml_element:
+                cdata: false
+                namespace: http://example.com/namespace5
+
+    callback_methods:
+        pre_serialize: [methodOne, methodTwo]
+        post_serialize: [methodOne, methodTwo]
+        post_deserialize: [methodOne, methodTwo]
