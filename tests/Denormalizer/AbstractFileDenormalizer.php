@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 abstract class AbstractFileDenormalizer extends TestCase
 {
     const NAMESPACE_FOLDER = [
-        'Somewhere\Sometimes' => __DIR__.'/../do_not_touch_me',
+        'Somewhere\Sometimes'          => __DIR__.'/../../do_not_touch_me',
         'Gam6itko\JSCC\Tests\Fixtures' => __DIR__.'/../sink',
     ];
 

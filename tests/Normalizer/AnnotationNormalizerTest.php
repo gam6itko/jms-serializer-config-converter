@@ -11,7 +11,6 @@ use Gam6itko\JSCC\Model\XmlElementConfig;
 use Gam6itko\JSCC\Model\XmlListConfig;
 use Gam6itko\JSCC\Model\XmlMapConfig;
 use Gam6itko\JSCC\Normalizer\AnnotationNormalizer;
-use Gam6itko\JSCC\Tests\ModelRepository;
 use JMS\Serializer\Metadata\PropertyMetadata;
 use PHPUnit\Framework\TestCase;
 

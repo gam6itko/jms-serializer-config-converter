@@ -60,13 +60,13 @@ class ConverterTest extends TestCase
         yield [
             'Normalizer for type `xml` not found',
             [],
-            []
+            [],
         ];
 
         yield [
             'Denormalizer for type `xml` not found',
             ['xml' => $this->createMock(NormalizerInterface::class)],
-            []
+            [],
         ];
     }
 }
