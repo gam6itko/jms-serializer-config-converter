@@ -16,8 +16,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @author Alexander Strizhak <gam6itko@gmail.com>
- *
- * @coversDefaultClass \Gam6itko\JSCC\Normalizer\AnnotationNormalizer
  */
 class AnnotationNormalizerTest extends TestCase
 {

@@ -17,13 +17,10 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @author Alexander Strizhak <gam6itko@gmail.com>
- *
- * @coversDefaultClass \Gam6itko\JSCC\Normalizer\XmlNormalizer
  */
 class XmlNormalizerTest extends TestCase
 {
     /**
-     * @covers ::normalize
      * @dataProvider dataNormalize
      */
     public function testNormalize(string $fqcn, ClassConfig $expected): void

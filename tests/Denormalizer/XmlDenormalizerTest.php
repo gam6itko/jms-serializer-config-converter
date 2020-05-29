@@ -7,13 +7,10 @@ use Gam6itko\JSCC\Model\ClassConfig;
 
 /**
  * @author Alexander Strizhak <gam6itko@gmail.com>
- *
- * @coversDefaultClass \Gam6itko\JSCC\Denormalizer\XmlDenormalizer
  */
 class XmlDenormalizerTest extends AbstractFileDenormalizer
 {
     /**
-     * @covers ::toString
      * @dataProvider dataToString
      */
     public function testToString(ClassConfig $config, string $pathToXml): void
@@ -32,7 +29,6 @@ class XmlDenormalizerTest extends AbstractFileDenormalizer
     }
 
     /**
-     * @covers ::denormalize
      * @depends testToString
      * @dataProvider dataDenormalize
      */

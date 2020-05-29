@@ -11,14 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @author Alexander Strizhak <gam6itko@gmail.com>
- *
- * @coversDefaultClass \Gam6itko\JSCC\Converter\Converter
  */
 class ConverterTest extends TestCase
 {
-    /**
-     * @covers ::convert
-     */
     public function testConvert(): void
     {
         $config = new ClassConfig(All::class);

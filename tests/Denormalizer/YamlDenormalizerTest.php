@@ -8,13 +8,10 @@ use Symfony\Component\Yaml\Yaml;
 
 /**
  * @author Alexander Strizhak <gam6itko@gmail.com>
- *
- * @coversDefaultClass \Gam6itko\JSCC\Denormalizer\YamlDenormalizer
  */
 class YamlDenormalizerTest extends AbstractFileDenormalizer
 {
     /**
-     * @covers ::toString
      * @dataProvider dataToString
      */
     public function testToString(ClassConfig $config, string $pathToYaml): void
@@ -34,7 +31,6 @@ class YamlDenormalizerTest extends AbstractFileDenormalizer
     }
 
     /**
-     * @covers ::denormalize
      * @depends testToString
      * @dataProvider dataDenormalize
      */
