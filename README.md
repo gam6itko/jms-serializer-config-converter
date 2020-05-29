@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/gam6itko/jms-serializer-config-converter.svg?branch=master)](https://travis-ci.org/gam6itko/jms-serializer-config-converter)
 [![Coverage Status](https://coveralls.io/repos/github/gam6itko/jms-serializer-config-converter/badge.svg?branch=master)](https://coveralls.io/github/gam6itko/jms-serializer-config-converter?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/53ec90f41542a0495d1b/maintainability)](https://codeclimate.com/github/gam6itko/jms-serializer-config-converter/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/53ec90f41542a0495d1b/test_coverage)](https://codeclimate.com/github/gam6itko/jms-serializer-config-converter/test_coverage)
 
 Convert [jms-serializer](https://jmsyst.com/libs/serializer) metadata configuration to another format.
 
