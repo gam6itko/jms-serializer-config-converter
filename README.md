@@ -27,7 +27,13 @@ composer require gam6itko/jms-serializer-config-converter --dev
 ## Usage
 
 ```php
-use Gam6itko\JSCC\Converter\Converter;use Gam6itko\JSCC\Denormalizer\XmlDenormalizer;use Gam6itko\JSCC\Denormalizer\YamlDenormalizer;use Gam6itko\JSCC\Normalizer\AnnotationNormalizer;use Gam6itko\JSCC\Normalizer\XmlNormalizer;use Gam6itko\JSCC\Normalizer\YamlNormalizer;use Metadata\Driver\FileLocator;
+use Gam6itko\JSCC\Converter\Converter;
+use Gam6itko\JSCC\Denormalizer\XmlDenormalizer;
+use Gam6itko\JSCC\Denormalizer\YamlDenormalizer;
+use Gam6itko\JSCC\Normalizer\AnnotationNormalizer;
+use Gam6itko\JSCC\Normalizer\XmlNormalizer;
+use Gam6itko\JSCC\Normalizer\YamlNormalizer;
+use Metadata\Driver\FileLocator;
 
 // normalizers
 $xmlFileLocator = new FileLocator([
