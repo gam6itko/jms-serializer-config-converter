@@ -1,6 +1,7 @@
 # JMS Serializer Config Converter (JSCC)
 
 [![Build Status](https://travis-ci.org/gam6itko/jms-serializer-config-converter.svg?branch=master)](https://travis-ci.org/gam6itko/jms-serializer-config-converter)
+[![Coverage Status](https://coveralls.io/repos/github/gam6itko/jms-serializer-config-converter/badge.svg?branch=master)](https://coveralls.io/github/gam6itko/jms-serializer-config-converter?branch=master)
 
 Convert [jms-serializer](https://jmsyst.com/libs/serializer) metadata configuration to another format.
 

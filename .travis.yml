@@ -16,7 +16,8 @@ before_script:
     - chmod +x ./cc-test-reporter
     - ./cc-test-reporter before-build
 script:
-    - vendor/bin/phpunit --configuration phpunit.xml.dist --coverage-clover clover.xml
+    - mkdir -p build/logs
+    - vendor/bin/phpunit --configuration phpunit.xml.dist --coverage-clover build/logs/clover.xml
 after_script:
     - travis_retry php vendor/bin/php-coveralls -v
     - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
