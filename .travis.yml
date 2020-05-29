@@ -6,9 +6,6 @@ php:
 cache:
     directories:
         - $HOME/.composer/cache/files
-env:
-    global:
-        - CC_TEST_REPORTER_ID=22eefd603ad09705107941f41a478c174d4723d38815d1ade819454e80905171
 install:
     - composer install
     - composer dump-autoload -o

@@ -16,6 +16,9 @@ use PHPUnit\Framework\TestCase;
  */
 class ConverterTest extends TestCase
 {
+    /**
+     * @covers ::convert
+     */
     public function testConvert(): void
     {
         $config = new ClassConfig(All::class);

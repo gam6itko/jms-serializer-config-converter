@@ -14,6 +14,7 @@ use Symfony\Component\Yaml\Yaml;
 class YamlDenormalizerTest extends AbstractFileDenormalizer
 {
     /**
+     * @covers ::toString
      * @dataProvider dataToString
      */
     public function testToString(ClassConfig $config, string $pathToYaml): void
@@ -33,6 +34,7 @@ class YamlDenormalizerTest extends AbstractFileDenormalizer
     }
 
     /**
+     * @covers ::denormalize
      * @depends testToString
      * @dataProvider dataDenormalize
      */

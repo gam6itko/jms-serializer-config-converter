@@ -23,9 +23,10 @@ use PHPUnit\Framework\TestCase;
 class XmlNormalizerTest extends TestCase
 {
     /**
-     * @dataProvider dataProvider
+     * @covers ::normalize
+     * @dataProvider dataNormalize
      */
-    public function testLoad(string $fqcn, ClassConfig $expected): void
+    public function testNormalize(string $fqcn, ClassConfig $expected): void
     {
         $fileLocator = new FileLocator([
             'Gam6itko\JSCC\Tests\Fixtures' => realpath(__DIR__.'/../Resources/Normalizer/xml'),
@@ -39,7 +40,7 @@ class XmlNormalizerTest extends TestCase
         self::assertEquals($expected->serialize(), $config->serialize());
     }
 
-    public function dataProvider()
+    public function dataNormalize()
     {
         //<editor-fold desc="case">
         $config = new ClassConfig('Gam6itko\JSCC\Tests\Fixtures\All');
