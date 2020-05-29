@@ -8,12 +8,14 @@ directories:
 env:
     global:
         - CC_TEST_REPORTER_ID=22eefd603ad09705107941f41a478c174d4723d38815d1ade819454e80905171
+install:
+    - composer install
+    - composer dump-autoload -o
 before_script:
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
     - chmod +x ./cc-test-reporter
     - ./cc-test-reporter before-build
 script:
-    - composer install
     - vendor/bin/phpunit --configuration phpunit.xml.dist --coverage-clover clover.xml
 after_script:
     - travis_retry php vendor/bin/php-coveralls -v
