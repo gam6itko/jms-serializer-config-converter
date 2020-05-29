@@ -1,4 +1,7 @@
 # JMS Serializer Config Converter (JSCC)
+
+[![Build Status](https://travis-ci.org/gam6itko/jms-serializer-config-converter.svg?branch=master)](https://travis-ci.org/gam6itko/jms-serializer-config-converter)
+
 Convert [jms-serialize](https://jmsyst.com/libs/serializer) metadata configuration to another format.
 
 My small project with the serializer configuration in the annotations has grown to large sizes, and it is necessary to break it into several small ones. 
