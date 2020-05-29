@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "jms/serializer": "^1.0|^2.0|^3.0",
+        "jms/serializer": "^2.0|^3.0",
         "jawira/case-converter": "^3.4"
     },
     "suggest": {
