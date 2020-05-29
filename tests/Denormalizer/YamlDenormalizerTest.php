@@ -4,6 +4,7 @@ namespace Gam6itko\JSCC\Tests\Denormalizer;
 
 use Gam6itko\JSCC\Denormalizer\YamlDenormalizer;
 use Gam6itko\JSCC\Model\ClassConfig;
+use Gam6itko\JSCC\Tests\ModelRepository;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -25,7 +26,7 @@ class YamlDenormalizerTest extends AbstractFileDenormalizer
     public function dataToString()
     {
         yield [
-            $this->buildConfigAll(),
+            ModelRepository::getAll(),
             realpath(__DIR__.'/../Resources/Denormalizer/yml/All.yaml'),
         ];
     }
@@ -45,7 +46,7 @@ class YamlDenormalizerTest extends AbstractFileDenormalizer
     public function dataDenormalize()
     {
         yield [
-            $this->buildConfigAll(),
+            ModelRepository::getAll(),
             realpath(__DIR__.'/../Resources/Denormalizer/yml/All.yaml'),
             __DIR__.'/../sink/All.yaml',
         ];

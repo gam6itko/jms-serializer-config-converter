@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Gam6itko\JSCC\Tests\Normalizer;
+namespace Gam6itko\JSCC\Tests;
 
 use Gam6itko\JSCC\Model\AccessorConfig;
 use Gam6itko\JSCC\Model\ClassConfig;
@@ -10,33 +10,12 @@ use Gam6itko\JSCC\Model\VirtualPropertyConfig;
 use Gam6itko\JSCC\Model\XmlElementConfig;
 use Gam6itko\JSCC\Model\XmlListConfig;
 use Gam6itko\JSCC\Model\XmlMapConfig;
-use Gam6itko\JSCC\Normalizer\AnnotationNormalizer;
-use Gam6itko\JSCC\Tests\ModelRepository;
 use JMS\Serializer\Metadata\PropertyMetadata;
-use PHPUnit\Framework\TestCase;
 
-/**
- * @author Alexander Strizhak <gam6itko@gmail.com>
- */
-class AnnotationNormalizerTest extends TestCase
+class ModelRepository
 {
-    /**
-     * @dataProvider dataProvider
-     */
-    public function testLoad(string $fqcn, ClassConfig $expected): void
+    public static function getAll()
     {
-        $normalizer = new AnnotationNormalizer();
-        $reflectionClass = new \ReflectionClass($fqcn);
-        $config = $normalizer->normalize($reflectionClass);
-        self::assertNotEmpty($config);
-        self::assertInstanceOf(ClassConfig::class, $config);
-        self::assertEquals($expected, $config);
-        self::assertEquals($expected->serialize(), $config->serialize());
-    }
-
-    public function dataProvider()
-    {
-        //<editor-fold desc="case">
         $config = new ClassConfig('Gam6itko\JSCC\Tests\Fixtures\All');
         $config->exclusionPolicy = 'ALL';
         $config->xmlRootName = 'foobar';
@@ -75,12 +54,14 @@ class AnnotationNormalizerTest extends TestCase
         $vp->type = 'integer';
         $config->virtualProperties['expression_prop'] = $vp;
         $vp = new VirtualPropertyConfig();
-        $vp->method = 'getSomeProperty';
         $vp->name = 'optional-prop-name';
+        $vp->method = 'getSomeProperty';
         $vp->serializedName = 'foo';
         $vp->type = 'integer';
         $config->virtualProperties['getSomeProperty'] = $vp;
         $prop = new PropertyConfig();
+        $prop->exclude = false;
+        $prop->expose = false;
         $prop->name = 'property';
         $prop->excludeIf = 'expr';
         $prop->exposeIf = 'expr';
@@ -143,38 +124,7 @@ class AnnotationNormalizerTest extends TestCase
         $xmlElement->namespace = 'http://example.com/namespace5';
         $prop->xmlElement = $xmlElement;
         $config->properties['xmlElement'] = $prop;
-        yield [
-            'Gam6itko\JSCC\Tests\Fixtures\All',
-            $config,
-        ];
-        //</editor-fold>
 
-        //<editor-fold desc="case">
-        $config = new ClassConfig('Gam6itko\JSCC\Tests\Fixtures\AuthorExpressionAccess');
-        $vp = new VirtualPropertyConfig();
-        $vp->name = 'firstName';
-        $vp->exp = 'object.getFirstName()';
-        $vp->serializedName = 'my_first_name';
-        $config->virtualProperties['firstName'] = $vp;
-        $vp = new VirtualPropertyConfig();
-        $vp->name = 'getLastName';
-        $vp->method = 'getLastName';
-        $config->virtualProperties['getLastName'] = $vp;
-        $prop = new PropertyConfig();
-        $prop->name = 'id';
-        $config->properties['id'] = $prop;
-        $prop = new PropertyConfig();
-        $prop->name = 'firstName';
-        $prop->exclude = true;
-        $config->properties['firstName'] = $prop;
-        $prop = new PropertyConfig();
-        $prop->name = 'lastName';
-        $prop->exclude = true;
-        $config->properties['lastName'] = $prop;
-        yield [
-            'Gam6itko\JSCC\Tests\Fixtures\AuthorExpressionAccess',
-            $config,
-        ];
-        //</editor-fold>
+        return $config;
     }
 }

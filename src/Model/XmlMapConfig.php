@@ -15,9 +15,7 @@ final class XmlMapConfig extends AbstractXmlCollectionConfig
     public function serialize()
     {
         return serialize([
-            $this->entryName,
-            $this->inline,
-            $this->namespace,
+            $this->keyAttributeName,
             parent::serialize(),
         ]);
     }
@@ -25,9 +23,7 @@ final class XmlMapConfig extends AbstractXmlCollectionConfig
     public function unserialize($serialized)
     {
         [
-            $this->entryName,
-            $this->inline,
-            $this->namespace,
+            $this->keyAttributeName,
             $parentSerialized,
         ] = unserialize($serialized);
 

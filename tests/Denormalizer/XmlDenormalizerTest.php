@@ -4,6 +4,8 @@ namespace Gam6itko\JSCC\Tests\Denormalizer;
 
 use Gam6itko\JSCC\Denormalizer\XmlDenormalizer;
 use Gam6itko\JSCC\Model\ClassConfig;
+use Gam6itko\JSCC\Tests\Fixtures\All;
+use Gam6itko\JSCC\Tests\ModelRepository;
 
 /**
  * @author Alexander Strizhak <gam6itko@gmail.com>
@@ -23,13 +25,13 @@ class XmlDenormalizerTest extends AbstractFileDenormalizer
     public function dataToString()
     {
         yield [
-            $this->buildConfigAll(),
+            ModelRepository::getAll(),
             realpath(__DIR__.'/../Resources/Denormalizer/xml/All.xml'),
         ];
     }
 
     /**
-     * @depends testToString
+     * @depends      testToString
      * @dataProvider dataDenormalize
      */
     public function testDenormalize(ClassConfig $config, string $compareWithFile, string $createsFile): void
@@ -43,9 +45,37 @@ class XmlDenormalizerTest extends AbstractFileDenormalizer
     public function dataDenormalize()
     {
         yield [
-            $this->buildConfigAll(),
+            ModelRepository::getAll(),
             realpath(__DIR__.'/../Resources/Denormalizer/xml/All.xml'),
             __DIR__.'/../sink/All.xml',
         ];
+    }
+
+    public function testNoNamespaces()
+    {
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('You must define at least one namespace folder');
+
+        $denormalizer = new XmlDenormalizer([]);
+        $denormalizer->denormalize(new ClassConfig(''));
+    }
+
+    public function testConfigNoName()
+    {
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage('Config class name not defined');
+
+        $denormalizer = new XmlDenormalizer(self::NAMESPACE_FOLDER);
+        $denormalizer->denormalize(new ClassConfig(''));
+    }
+
+    public function testNoOverwrite()
+    {
+        $this->expectException(\RuntimeException::class);
+
+        $denormalizer = new XmlDenormalizer([
+            'Gam6itko\JSCC\Tests\Fixtures' => __DIR__.'/../Resources/Normalizer/xml',
+        ]);
+        $denormalizer->denormalize(new ClassConfig(All::class));
     }
 }

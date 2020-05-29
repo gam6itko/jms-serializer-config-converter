@@ -147,6 +147,7 @@ class AnnotationNormalizer implements NormalizerInterface
             foreach ($annotations as $i => $annot) {
                 if ($annot instanceof VirtualProperty) {
                     $vp = new VirtualPropertyConfig();
+                    $vp->method = $method->name;
                     $vp->name = $annot->name;
                     $vp->exp = $annot->exp;
                     $this->fillProperty($vp, $annot->options);

@@ -42,13 +42,31 @@ class ConverterTest extends TestCase
         $converter->convert($refClass, 'xml', 'yaml');
     }
 
-    public function testNotFound(): void
+    /**
+     * @dataProvider dataNotFound
+     */
+    public function testNotFound(string $message, array $normalizers, array $denormalizers): void
     {
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Normalizer for type `xml` not found');
+        $this->expectExceptionMessage($message);
 
-        $converter = new Converter([], []);
+        $converter = new Converter($normalizers, $denormalizers);
         $refClass = new \ReflectionClass(All::class);
         $converter->convert($refClass, 'xml', 'yaml');
+    }
+
+    public function dataNotFound()
+    {
+        yield [
+            'Normalizer for type `xml` not found',
+            [],
+            []
+        ];
+
+        yield [
+            'Denormalizer for type `xml` not found',
+            ['xml' => $this->createMock(NormalizerInterface::class)],
+            []
+        ];
     }
 }

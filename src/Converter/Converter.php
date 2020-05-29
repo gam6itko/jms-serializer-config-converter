@@ -32,7 +32,7 @@ class Converter implements ConverterInterface
             throw new \RuntimeException("Normalizer for type `$from` not found");
         }
         if (!$denormalizer = $this->findLizer($to, $this->denormalizers)) {
-            throw new \RuntimeException("Normalizer for type `$from` not found");
+            throw new \RuntimeException("Denormalizer for type `$from` not found");
         }
 
         $denormalizer->denormalize($normalizer->normalize($class));
