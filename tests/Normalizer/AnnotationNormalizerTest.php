@@ -21,9 +21,9 @@ use PHPUnit\Framework\TestCase;
 class AnnotationNormalizerTest extends TestCase
 {
     /**
-     * @dataProvider dataProvider
+     * @dataProvider dataNormalize
      */
-    public function testLoad(string $fqcn, ClassConfig $expected): void
+    public function testNormalize(string $fqcn, ClassConfig $expected): void
     {
         $normalizer = new AnnotationNormalizer();
         $reflectionClass = new \ReflectionClass($fqcn);
@@ -34,7 +34,7 @@ class AnnotationNormalizerTest extends TestCase
         self::assertEquals($expected->serialize(), $config->serialize());
     }
 
-    public function dataProvider()
+    public function dataNormalize()
     {
         //<editor-fold desc="case">
         $config = new ClassConfig('Gam6itko\JSCC\Tests\Fixtures\All');
@@ -173,6 +173,24 @@ class AnnotationNormalizerTest extends TestCase
         $config->properties['lastName'] = $prop;
         yield [
             'Gam6itko\JSCC\Tests\Fixtures\AuthorExpressionAccess',
+            $config,
+        ];
+        //</editor-fold>
+
+        //<editor-fold desc="case">
+        $config = new ClassConfig('Gam6itko\JSCC\Tests\Fixtures\Attribute');
+        $vp = new VirtualPropertyConfig();
+        $vp->name = 'attribute';
+        $vp->method = 'getAttribute';
+        $vp->xmlAttribute = true;
+        $config->virtualProperties['getAttribute'] = $vp;
+        $vp = new VirtualPropertyConfig();
+        $vp->name = 'value';
+        $vp->method = 'getValue';
+        $vp->xmlValue = true;
+        $config->virtualProperties['getValue'] = $vp;
+        yield [
+            'Gam6itko\JSCC\Tests\Fixtures\Attribute',
             $config,
         ];
         //</editor-fold>

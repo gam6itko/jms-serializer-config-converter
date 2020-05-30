@@ -14,9 +14,9 @@ class ConvertCommandTest extends TestCase
     {
         $shouldConvertClasses = [
             'Gam6itko\\JSCC\\Tests\\Fixtures\\All',
+            'Gam6itko\\JSCC\\Tests\\Fixtures\\Attribute',
             'Gam6itko\\JSCC\\Tests\\Fixtures\\Author',
             'Gam6itko\\JSCC\\Tests\\Fixtures\\AuthorExpressionAccess',
-            'Gam6itko\\JSCC\\Tests\\Fixtures\\BlogPost',
             'Gam6itko\\JSCC\\Tests\\Fixtures\\Discriminator\\ImagePost',
             'Gam6itko\\JSCC\\Tests\\Fixtures\\Discriminator\\Moped',
             'Gam6itko\\JSCC\\Tests\\Fixtures\\Discriminator\\Post',

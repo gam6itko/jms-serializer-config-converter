@@ -30,11 +30,6 @@ final class PropertyConfig extends AbstractPropertyConfig
     public $exposeIf;
 
     /**
-     * @var bool|null
-     */
-    public $skipWhenEmpty;
-
-    /**
      * @var string|null
      */
     public $accessType;
@@ -70,16 +65,6 @@ final class PropertyConfig extends AbstractPropertyConfig
     public $xmlKeyValuePairs;
 
     /**
-     * @var XmlListConfig|null
-     */
-    public $xmlList;
-
-    /**
-     * @var XmlMapConfig|null
-     */
-    public $xmlMap;
-
-    /**
      * @var XmlElement|null
      */
     public $xmlElement;
@@ -91,19 +76,13 @@ final class PropertyConfig extends AbstractPropertyConfig
             $this->expose,
             $this->excludeIf,
             $this->exposeIf,
-            $this->skipWhenEmpty,
             $this->accessType,
             $this->accessor,
-            $this->sinceVersion,
-            $this->untilVersion,
-            $this->groups,
             $this->inline,
             $this->readOnly,
             $this->maxDepth,
             $this->xmlAttributeMap,
             $this->xmlKeyValuePairs,
-            $this->xmlList,
-            $this->xmlMap,
             $this->xmlElement,
             parent::serialize(),
         ]);
@@ -116,19 +95,13 @@ final class PropertyConfig extends AbstractPropertyConfig
             $this->expose,
             $this->excludeIf,
             $this->exposeIf,
-            $this->skipWhenEmpty,
             $this->accessType,
             $this->accessor,
-            $this->sinceVersion,
-            $this->untilVersion,
-            $this->groups,
             $this->inline,
             $this->readOnly,
             $this->maxDepth,
             $this->xmlAttributeMap,
             $this->xmlKeyValuePairs,
-            $this->xmlList,
-            $this->xmlMap,
             $this->xmlElement,
             $parentSerialized,
         ] = unserialize($serialized);

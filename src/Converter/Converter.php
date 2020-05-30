@@ -35,7 +35,10 @@ class Converter implements ConverterInterface
             throw new \RuntimeException("Denormalizer for type `$from` not found");
         }
 
-        $denormalizer->denormalize($normalizer->normalize($class));
+        if (null === $config = $normalizer->normalize($class)) {
+            return;
+        }
+        $denormalizer->denormalize($config);
     }
 
     /**

@@ -33,6 +33,11 @@ abstract class AbstractPropertyConfig implements \Serializable
     public $untilVersion;
 
     /**
+     * @var bool|null
+     */
+    public $skipWhenEmpty;
+
+    /**
      * @var array|null
      */
     public $groups;
@@ -47,14 +52,30 @@ abstract class AbstractPropertyConfig implements \Serializable
      */
     public $xmlValue;
 
+    /**
+     * @var XmlListConfig|null
+     */
+    public $xmlList;
+
+    /**
+     * @var XmlMapConfig|null
+     */
+    public $xmlMap;
+
     public function serialize()
     {
         return serialize([
             $this->name,
             $this->type,
             $this->serializedName,
+            $this->sinceVersion,
+            $this->untilVersion,
+            $this->skipWhenEmpty,
+            $this->groups,
             $this->xmlAttribute,
             $this->xmlValue,
+            $this->xmlList,
+            $this->xmlMap,
         ]);
     }
 
@@ -64,8 +85,14 @@ abstract class AbstractPropertyConfig implements \Serializable
             $this->name,
             $this->type,
             $this->serializedName,
+            $this->sinceVersion,
+            $this->untilVersion,
+            $this->skipWhenEmpty,
+            $this->groups,
             $this->xmlAttribute,
             $this->xmlValue,
+            $this->xmlList,
+            $this->xmlMap,
         ] = unserialize($serialized);
     }
 }
