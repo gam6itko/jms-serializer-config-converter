@@ -75,7 +75,30 @@ class XmlDenormalizerTest extends AbstractFileDenormalizer
 
         $denormalizer = new XmlDenormalizer([
             'Gam6itko\JSCC\Tests\Fixtures' => __DIR__.'/../Resources/Normalizer/xml',
-        ]);
+        ], false);
         $denormalizer->denormalize(new ClassConfig(All::class));
+    }
+
+    /**
+     * @dataProvider dataDenormalize
+     */
+    public function testOverwrite(ClassConfig $config, string $compareWithFile, string $createsFile)
+    {
+        $oldFile = "$createsFile~";
+        self::assertFileDoesNotExist($oldFile);
+
+        try {
+            touch($createsFile);
+
+            $denormalizer = new XmlDenormalizer(self::NAMESPACE_FOLDER, true);
+            $denormalizer->denormalize($config);
+            self::assertFileExists($oldFile);
+            self::assertFileExists($createsFile);
+            self::assertXmlFileEqualsXmlFile($compareWithFile, $createsFile);
+        } finally {
+            if (file_exists($oldFile)) {
+                unlink($oldFile);
+            }
+        }
     }
 }

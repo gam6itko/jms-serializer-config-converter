@@ -60,6 +60,10 @@ class AnnotationNormalizer implements NormalizerInterface
 
     public function normalize(\ReflectionClass $class): ?ClassConfig
     {
+        if ($class->isAbstract()) {
+            return null;
+        }
+
         $config = new ClassConfig($class->name);
 
         foreach ($this->reader->getClassAnnotations($class) as $annot) {
@@ -146,11 +150,7 @@ class AnnotationNormalizer implements NormalizerInterface
             $vp = null;
             foreach ($annotations as $i => $annot) {
                 if ($annot instanceof VirtualProperty) {
-                    $vp = new VirtualPropertyConfig();
-                    $vp->method = $method->name;
-                    $vp->name = $annot->name;
-                    $vp->exp = $annot->exp;
-                    $this->fillProperty($vp, $annot->options);
+                    $vp = $this->parseVirtualProperty($method, $annot);
                     unset($annotations[$i]);
                     break;
                 }
@@ -174,6 +174,28 @@ class AnnotationNormalizer implements NormalizerInterface
             $this->fillProperty($propConf, $this->reader->getPropertyAnnotations($property));
             $config->properties[$property->getName()] = $propConf;
         }
+    }
+
+    private function parseVirtualProperty(\ReflectionMethod $method, VirtualProperty $annot)
+    {
+        $vp = new VirtualPropertyConfig();
+
+        $vp->method = $method->name;
+        $vp->exp = $annot->exp;
+
+        if ($annot->name) {
+            $vp->name = $annot->name;
+        } else {
+            if (0 === strpos($method->name, 'get')) {
+                $vp->name = lcfirst(substr($method->name, 3));
+            } else {
+                $vp->name = $method->name;
+            }
+        }
+
+        $this->fillProperty($vp, $annot->options);
+
+        return $vp;
     }
 
     /**
@@ -241,7 +263,7 @@ class AnnotationNormalizer implements NormalizerInterface
                 $propConf->xmlKeyValuePairs = true;
             } elseif ($annot instanceof XmlAttribute) {
                 $propConf->xmlAttribute = true;
-            // $annot->namespace;
+                // $annot->namespace;
             } elseif ($annot instanceof SkipWhenEmpty) {
                 $propConf->skipWhenEmpty = true;
             } elseif ($annot instanceof Inline) {

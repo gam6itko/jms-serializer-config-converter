@@ -125,7 +125,7 @@ class ConvertCommand extends Command
                 return include $vendorDir.'/autoload.php';
             }
 
-            $folder = dirname($projectFolder);
+            $folder = \dirname($projectFolder);
         }
 
         throw new \RuntimeException('Failed to find project composer.json');
@@ -158,10 +158,11 @@ class ConvertCommand extends Command
                 continue;
             }
 
-            if (is_dir($item)) {
-                $this->collectClasses($namespace.'\\'.$item, $item);
+            $fullpath = $folder.\DIRECTORY_SEPARATOR.$item;
+            if (is_dir($fullpath)) {
+                $result = array_merge($result, $this->collectClasses($namespace.'\\'.$item, $fullpath));
             } else {
-                if (is_file($folder.\DIRECTORY_SEPARATOR.$item)) {
+                if (is_file($fullpath)) {
                     $fqcn = $namespace.'\\'.str_replace('.php', '', $item);
                     if (class_exists($fqcn)) {
                         $result[] = $fqcn;

@@ -12,10 +12,25 @@ class ConvertCommandTest extends TestCase
 {
     public function test()
     {
+        $shouldConvertClasses = [
+            'Gam6itko\\JSCC\\Tests\\Fixtures\\All',
+            'Gam6itko\\JSCC\\Tests\\Fixtures\\Author',
+            'Gam6itko\\JSCC\\Tests\\Fixtures\\AuthorExpressionAccess',
+            'Gam6itko\\JSCC\\Tests\\Fixtures\\BlogPost',
+            'Gam6itko\\JSCC\\Tests\\Fixtures\\Discriminator\\ImagePost',
+            'Gam6itko\\JSCC\\Tests\\Fixtures\\Discriminator\\Moped',
+            'Gam6itko\\JSCC\\Tests\\Fixtures\\Discriminator\\Post',
+            'Gam6itko\\JSCC\\Tests\\Fixtures\\Discriminator\\Vehicle',
+            'Gam6itko\\JSCC\\Tests\\Fixtures\\ObjectWithVirtualPropertiesAndDuplicatePropName',
+        ];
         $converter = $this->createMock(ConverterInterface::class);
         $converter
             ->expects(self::atLeastOnce())
-            ->method('convert');
+            ->method('convert')
+            ->willReturnCallback(static function (\ReflectionClass $class, string $fromFormat, string $toFormat) use (&$shouldConvertClasses) {
+                self::assertNotFalse($key = array_search($class->name, $shouldConvertClasses));
+                unset($shouldConvertClasses[$key]);
+            });
 
         $input = $this->createMock(InputInterface::class);
         $input
@@ -29,6 +44,6 @@ class ConvertCommandTest extends TestCase
         $output = $this->createMock(OutputInterface::class);
         $command = new ConvertCommand($converter);
         $command->run($input, $output);
-        self::assertTrue(true);
+        self::assertEmpty($shouldConvertClasses);
     }
 }

@@ -48,7 +48,7 @@ abstract class AbstractFileDenormalizer implements DenormalizerInterface
                 throw new \RuntimeException("File `$saveTo` already exists");
             } else {
                 // rename old file and save
-                rename($saveTo, "~$saveTo");
+                rename($saveTo, "$saveTo~");
             }
         }
 

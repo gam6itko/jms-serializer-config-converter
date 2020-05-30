@@ -11,6 +11,7 @@ use Gam6itko\JSCC\Model\XmlElementConfig;
 use Gam6itko\JSCC\Model\XmlListConfig;
 use Gam6itko\JSCC\Model\XmlMapConfig;
 use Gam6itko\JSCC\Normalizer\AnnotationNormalizer;
+use Gam6itko\JSCC\Tests\Fixtures\Discriminator\Vehicle;
 use JMS\Serializer\Metadata\PropertyMetadata;
 use PHPUnit\Framework\TestCase;
 
@@ -156,7 +157,7 @@ class AnnotationNormalizerTest extends TestCase
         $vp->serializedName = 'my_first_name';
         $config->virtualProperties['firstName'] = $vp;
         $vp = new VirtualPropertyConfig();
-        $vp->name = 'getLastName';
+        $vp->name = 'lastName';
         $vp->method = 'getLastName';
         $config->virtualProperties['getLastName'] = $vp;
         $prop = new PropertyConfig();
@@ -175,5 +176,13 @@ class AnnotationNormalizerTest extends TestCase
             $config,
         ];
         //</editor-fold>
+    }
+
+    public function testAbstractClass()
+    {
+        $normalizer = new AnnotationNormalizer();
+        $reflectionClass = new \ReflectionClass(Vehicle::class);
+        $config = $normalizer->normalize($reflectionClass);
+        self::assertNull($config);
     }
 }

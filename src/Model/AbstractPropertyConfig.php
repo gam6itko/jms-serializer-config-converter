@@ -37,12 +37,24 @@ abstract class AbstractPropertyConfig implements \Serializable
      */
     public $groups;
 
+    /**
+     * @var bool|null
+     */
+    public $xmlAttribute;
+
+    /**
+     * @var bool|null
+     */
+    public $xmlValue;
+
     public function serialize()
     {
         return serialize([
             $this->name,
             $this->type,
             $this->serializedName,
+            $this->xmlAttribute,
+            $this->xmlValue,
         ]);
     }
 
@@ -52,6 +64,8 @@ abstract class AbstractPropertyConfig implements \Serializable
             $this->name,
             $this->type,
             $this->serializedName,
+            $this->xmlAttribute,
+            $this->xmlValue,
         ] = unserialize($serialized);
     }
 }

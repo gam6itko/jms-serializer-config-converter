@@ -62,17 +62,7 @@ final class PropertyConfig extends AbstractPropertyConfig
     /**
      * @var bool|null
      */
-    public $xmlAttribute;
-
-    /**
-     * @var bool|null
-     */
     public $xmlAttributeMap;
-
-    /**
-     * @var bool|null
-     */
-    public $xmlValue;
 
     /**
      * @var bool|null
@@ -110,9 +100,7 @@ final class PropertyConfig extends AbstractPropertyConfig
             $this->inline,
             $this->readOnly,
             $this->maxDepth,
-            $this->xmlAttribute,
             $this->xmlAttributeMap,
-            $this->xmlValue,
             $this->xmlKeyValuePairs,
             $this->xmlList,
             $this->xmlMap,
@@ -137,9 +125,7 @@ final class PropertyConfig extends AbstractPropertyConfig
             $this->inline,
             $this->readOnly,
             $this->maxDepth,
-            $this->xmlAttribute,
             $this->xmlAttributeMap,
-            $this->xmlValue,
             $this->xmlKeyValuePairs,
             $this->xmlList,
             $this->xmlMap,
