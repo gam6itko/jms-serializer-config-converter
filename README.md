@@ -86,3 +86,45 @@ $converter->convert($refClass, 'foo', 'bar');
 // exception here !!!
 $converter->convert($refClass, 'xml', 'annotation');
 ```
+
+## Usage in Symfony
+
+```yaml
+services:
+    Gam6itko\JSCC\Normalizer\AnnotationNormalizer: ~
+
+    Gam6itko\JSCC\Normalizer\XmlNormalizer: 
+        arguments: ['@jms_serializer.metadata.file_locator']
+
+    Gam6itko\JSCC\Normalizer\YamlNormalizer: 
+        arguments: ['@jms_serializer.metadata.file_locator']
+
+    Gam6itko\JSCC\Denormalizer\XmlDenormalizer:
+        arguments:
+            - 'Namespace': '%kernel.project_dir%/config/serializer/xml/Namespace'
+
+    Gam6itko\JSCC\Denormalizer\YamlDenormalizer:
+        arguments:
+            - 'Namespace': '%kernel.project_dir%/config/serializer/yaml/Namespace'
+
+    Gam6itko\JSCC\Converter\Converter:
+        arguments:
+            -   annotation: '@Gam6itko\JSCC\Normalizer\AnnotationNormalizer'
+                annot: '@Gam6itko\JSCC\Normalizer\AnnotationNormalizer'
+                xml: '@Gam6itko\JSCC\Normalizer\XmlNormalizer'
+                yaml: '@Gam6itko\JSCC\Normalizer\YamlNormalizer'
+                yml: '@Gam6itko\JSCC\Normalizer\YamlNormalizer'
+                foo: '@Gam6itko\JSCC\Normalizer\YamlNormalizer'
+            -   xml: '@Gam6itko\JSCC\Denormalizer\XmlDenormalizer'
+                yaml: '@Gam6itko\JSCC\Denormalizer\YamlDenormalizer'
+                bar: '@Gam6itko\JSCC\Denormalizer\YamlDenormalizer'
+
+    Gam6itko\JSCC\Command\ConvertCommand:
+        arguments: ['@Gam6itko\JSCC\Converter\Converter']
+        tags:
+            - {name: console.command}
+```
+
+```bash
+php bin/console jms-serializer:config-convert Namespace annotation yaml -vvv
+```
