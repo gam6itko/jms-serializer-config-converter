@@ -5,7 +5,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/53ec90f41542a0495d1b/maintainability)](https://codeclimate.com/github/gam6itko/jms-serializer-config-converter/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/53ec90f41542a0495d1b/test_coverage)](https://codeclimate.com/github/gam6itko/jms-serializer-config-converter/test_coverage)
 
-Convert [jms-serializer](https://jmsyst.com/libs/serializer) metadata configuration to another format.
+Converts [jms-serializer](https://jmsyst.com/libs/serializer) metadata configuration to another format.
 
 My small project with the serializer configuration in the annotations has grown to large sizes, and it is necessary to break it into several small ones. 
 Also, I need to convert configurations of a serializer to files for different projects. 
@@ -27,7 +27,13 @@ composer require gam6itko/jms-serializer-config-converter --dev
 ## Usage
 
 ```php
-use Gam6itko\JSCC\Converter\Converter;use Gam6itko\JSCC\Denormalizer\XmlDenormalizer;use Gam6itko\JSCC\Denormalizer\YamlDenormalizer;use Gam6itko\JSCC\Normalizer\AnnotationNormalizer;use Gam6itko\JSCC\Normalizer\XmlNormalizer;use Gam6itko\JSCC\Normalizer\YamlNormalizer;use Metadata\Driver\FileLocator;
+use Gam6itko\JSCC\Converter\Converter;
+use Gam6itko\JSCC\Denormalizer\XmlDenormalizer;
+use Gam6itko\JSCC\Denormalizer\YamlDenormalizer;
+use Gam6itko\JSCC\Normalizer\AnnotationNormalizer;
+use Gam6itko\JSCC\Normalizer\XmlNormalizer;
+use Gam6itko\JSCC\Normalizer\YamlNormalizer;
+use Metadata\Driver\FileLocator;
 
 // normalizers
 $xmlFileLocator = new FileLocator([
