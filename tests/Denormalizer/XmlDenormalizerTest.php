@@ -85,7 +85,7 @@ class XmlDenormalizerTest extends AbstractFileDenormalizer
     public function testOverwrite(ClassConfig $config, string $compareWithFile, string $createsFile)
     {
         $oldFile = "$createsFile~";
-        self::assertFileDoesNotExist($oldFile);
+        self::assertFileNotExists($oldFile);
 
         try {
             touch($createsFile);
