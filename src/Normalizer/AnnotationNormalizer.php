@@ -263,7 +263,7 @@ class AnnotationNormalizer implements NormalizerInterface
                 $propConf->xmlKeyValuePairs = true;
             } elseif ($annot instanceof XmlAttribute) {
                 $propConf->xmlAttribute = true;
-                // $annot->namespace;
+            // $annot->namespace;
             } elseif ($annot instanceof SkipWhenEmpty) {
                 $propConf->skipWhenEmpty = true;
             } elseif ($annot instanceof Inline) {

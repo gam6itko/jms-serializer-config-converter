@@ -12,7 +12,7 @@
     ],
     "require": {
         "jawira/case-converter": "^3.4",
-        "jms/serializer": "^2.0|^3.0"
+        "jms/serializer": "^2.0||^3.0"
     },
     "suggest": {
         "symfony/yaml": "Required if you'd like to use the YAML metadata format."
@@ -26,7 +26,7 @@
         "doctrine/collections": "^1.6",
         "php-coveralls/php-coveralls": "^2.2",
         "phpunit/phpunit": "^7.5||^8.0||^9.0",
-        "symfony/yaml": "^3.0|^4.0|^5.0"
+        "symfony/yaml": "^3.0||^4.0||^5.0"
     },
     "autoload-dev": {
         "psr-4": {
