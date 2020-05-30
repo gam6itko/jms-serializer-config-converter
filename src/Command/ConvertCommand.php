@@ -47,6 +47,9 @@ class ConvertCommand extends Command
         }
 
         foreach ($classes as $fqcn) {
+            if ($output->isDebug()) {
+                $output->writeln('Convert: '.$fqcn);
+            }
             $this->converter->convert(new \ReflectionClass($fqcn), $input->getArgument('from-format'), $input->getArgument('to-format'));
         }
 
@@ -65,24 +68,33 @@ class ConvertCommand extends Command
                 continue;
             }
 
-            $nsArr = explode('\\', trim($ns, '\\'));
-            foreach ($nsArr as $str) {
-                if (empty($targetNsArr)) {
-                    $result[] = $ns;
-                    continue 2;
-                }
-                if ($str === $targetNsArr[0]) {
-                    array_shift($targetNsArr);
-                    continue;
-                }
-            }
-
-            if (empty($targetNsArr)) {
+            if ($targetNamespace === $ns) {
                 $result[] = $ns;
                 continue;
             }
 
-            $add = implode(\DIRECTORY_SEPARATOR, $targetNsArr);
+            $tmpArr = $targetNsArr;
+            $nsArr = explode('\\', trim($ns, '\\'));
+            foreach ($nsArr as $str) {
+                if (empty($tmpArr)) {
+                    $result[] = $ns;
+                    continue 2;
+                }
+                if ($str === $tmpArr[0]) {
+                    array_shift($tmpArr);
+                    continue;
+                }
+
+                // bad namespace
+                continue 2;
+            }
+
+            if (empty($tmpArr)) {
+                $result[] = $ns;
+                continue;
+            }
+
+            $add = implode(\DIRECTORY_SEPARATOR, $tmpArr);
             foreach ($dirs as $dir) {
                 $folder = rtrim($dir, \DIRECTORY_SEPARATOR).\DIRECTORY_SEPARATOR.$add;
                 if (file_exists($folder)) {
@@ -96,21 +108,27 @@ class ConvertCommand extends Command
 
     private function getClassLoader(): ClassLoader
     {
-        if (null === $pathToComposer = $this->findComposerJson()) {
-            throw new \RuntimeException('Failed to find project composer.json');
-        }
-
-        $composerConfig = json_decode(file_get_contents($pathToComposer), true);
-        $vendorDir = \dirname($pathToComposer).'/vendor';
-        if (isset($composerConfig['config']['vendor-dir'])) {
-            if ($absPath = realpath($composerConfig['config']['vendor-dir'])) {
-                $vendorDir = $absPath;
-            } else {
-                $vendorDir = \dirname($pathToComposer).\DIRECTORY_SEPARATOR.$composerConfig['config']['vendor-dir'];
+        $folder = __DIR__;
+        while ($pathToComposer = $this->findComposerJson($folder)) {
+            $composerConfig = json_decode(file_get_contents($pathToComposer), true);
+            $projectFolder = \dirname($pathToComposer);
+            $vendorDir = $projectFolder.'/vendor';
+            if (isset($composerConfig['config']['vendor-dir'])) {
+                if ($absPath = realpath($composerConfig['config']['vendor-dir'])) {
+                    $vendorDir = $absPath;
+                } else {
+                    $vendorDir = \dirname($pathToComposer).\DIRECTORY_SEPARATOR.$composerConfig['config']['vendor-dir'];
+                }
             }
+
+            if (file_exists($pathToAutoload = $vendorDir.'/autoload.php')) {
+                return include $vendorDir.'/autoload.php';
+            }
+
+            $folder = dirname($projectFolder);
         }
 
-        return include $vendorDir.'/autoload.php';
+        throw new \RuntimeException('Failed to find project composer.json');
     }
 
     /**
